@@ -1,0 +1,8 @@
+package uz.itschool.educationsystemapp.dto.course_features
+
+class PlacesDto (
+    var courseName: String,
+    var word: String,
+    var definition: String,
+    var example: String
+)
