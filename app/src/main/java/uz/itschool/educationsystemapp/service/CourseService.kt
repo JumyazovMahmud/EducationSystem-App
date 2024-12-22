@@ -3,24 +3,41 @@ package uz.itschool.educationsystemapp.service
 import android.content.Context
 import uz.itschool.educationsystemapp.db.AppDataBase
 import uz.itschool.educationsystemapp.dto.CourseDto
+import uz.itschool.educationsystemapp.mapper.CourseMapper
 import uz.itschool.educationsystemapp.module.Course
+import uz.itschool.educationsystemapp.util.CRUD
 
-class CourseService(context: Context) {
-    val courseRepository = AppDataBase.getInstance(context).getCourseRepository()
-
-    fun create(dto: CourseDto){
-
+class CourseService(context: Context) : CRUD<CourseDto, Course, Int> {
+    private val courseRepository = AppDataBase.getInstance(context).getCourseRepository()
+    private val courseMapper = CourseMapper()
+    override fun create(dto: CourseDto):Boolean{
+        if(this.courseMapper.dtoToEntity(dto) in this.courseRepository.getAllToCourses()){
+            return false
+        }
+        this.courseRepository.addCourse(this.courseMapper.dtoToEntity(dto))
+        return true
     }
 
-    fun update (dto: CourseDto, courseName: String, id:Int){
-
+    override fun get(id:Int): Course? {
+        return this.courseRepository.getCourseById(id)
     }
 
-    fun delete(courseName:String, id:Int){
-
+    override fun update(dto: CourseDto, id: Int): Boolean {
+        if (this.courseRepository.getCourseById(id) != null) {
+            this.courseRepository.updateCourse(
+                dto.courseId,
+                dto.courseName,
+                dto.duration)
+            return true
+        }
+        return false
     }
 
-    fun get(id:Int){
-
+    override fun delete(id: Int): Boolean {
+        if (this.courseRepository.getCourseById(id) != null) {
+            this.courseRepository.deleteCourseById(id)
+            return true
+        }
+        return false
     }
 }

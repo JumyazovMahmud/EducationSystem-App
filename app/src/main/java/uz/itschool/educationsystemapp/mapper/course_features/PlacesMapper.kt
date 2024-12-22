@@ -1,6 +1,5 @@
 package uz.itschool.educationsystemapp.mapper.course_features
 
-import androidx.compose.ui.text.rememberTextMeasurer
 import uz.itschool.educationsystemapp.dto.course_features.PlacesDto
 import uz.itschool.educationsystemapp.module.course_features.Places
 

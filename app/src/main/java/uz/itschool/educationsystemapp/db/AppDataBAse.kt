@@ -7,12 +7,10 @@ import androidx.room.RoomDatabase
 import uz.itschool.educationsystemapp.module.Course
 import uz.itschool.educationsystemapp.module.Enrollment
 import uz.itschool.educationsystemapp.module.Student
-import uz.itschool.todoapp.db.ToDoRepository
 
 @Database(entities = [Course::class, Enrollment::class, Student::class], version = 1)
     abstract class AppDataBase: RoomDatabase() {
 
-        abstract fun getToDoRepository(): ToDoRepository
         abstract fun getStudentRepository(): StudentRepository
         abstract fun getCourseRepository(): CourseRepository
 //        abstract fun getEnrollmentRepository():
