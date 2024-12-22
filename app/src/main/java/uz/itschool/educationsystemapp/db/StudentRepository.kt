@@ -6,7 +6,7 @@ import uz.itschool.educationsystemapp.module.Student
 
 interface StudentRepository {
     @Query("SELECT * FROM student where deleted = false ")
-    fun getAllToStudents(): List<Student?>
+    fun getAllStudents(): List<Student?>
 
     @Insert
     fun addStudent(student: Student)
@@ -18,5 +18,5 @@ interface StudentRepository {
     fun getStudentById(id: Int): Student?
 
     @Query("UPDATE student SET name = :name, email = :email, phone = :phone WHERE studentId = :id")
-    fun updateToDoItem(id: Int, name: String, email: String, phone: String)
+    fun updateStudent(id: Int, name: String, email: String, phone: String)
 }

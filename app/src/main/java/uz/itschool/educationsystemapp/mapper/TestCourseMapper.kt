@@ -7,17 +7,21 @@ import uz.itschool.educationsystemapp.module.TestCourse
 class TestCourseMapper {
     fun dtoToEntity(dto: TestCourseDto):TestCourse{
         return TestCourse(
+            dto.testCourseId,
             dto.courseName,
             dto.topic,
-            dto.duration
+            dto.duration,
+            dto.deleted
         )
     }
 
     fun entityToDto(entity: TestCourse):TestCourseDto{
         return TestCourseDto(
+            entity.testCourseId,
             entity.courseName,
             entity.topic,
-            entity.duration
+            entity.duration,
+            entity.deleted
         )
     }
 }

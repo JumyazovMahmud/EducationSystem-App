@@ -8,7 +8,7 @@ import uz.itschool.educationsystemapp.module.Student
 
 interface CourseRepository {
     @Query("SELECT * FROM course where deleted = false ")
-    fun getAllToCourses(): List<Course?>
+    fun getAllCourses(): List<Course?>
 
     @Insert
     fun addCourse(course: Course)

@@ -11,7 +11,7 @@ class CourseService(context: Context) : CRUD<CourseDto, Course, Int> {
     private val courseRepository = AppDataBase.getInstance(context).getCourseRepository()
     private val courseMapper = CourseMapper()
     override fun create(dto: CourseDto):Boolean{
-        if(this.courseMapper.dtoToEntity(dto) in this.courseRepository.getAllToCourses()){
+        if(this.courseMapper.dtoToEntity(dto) in this.courseRepository.getAllCourses()){
             return false
         }
         this.courseRepository.addCourse(this.courseMapper.dtoToEntity(dto))
