@@ -9,7 +9,7 @@ class TestCourse(
     var testCourseId: Int,
     var courseName: String,
     var topic: String,
-    var duration: String,
+    var duration: Int,
     var deleted: Boolean = false
 )
 

@@ -2,8 +2,6 @@ package uz.itschool.educationsystemapp.db.course_features
 
 import androidx.room.Insert
 import androidx.room.Query
-import uz.itschool.educationsystemapp.module.course_features.Foods
-import uz.itschool.educationsystemapp.module.course_features.Occupations
 import uz.itschool.educationsystemapp.module.course_features.Places
 
 interface PlacesRepository {
