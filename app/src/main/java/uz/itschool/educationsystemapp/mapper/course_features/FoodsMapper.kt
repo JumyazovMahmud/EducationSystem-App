@@ -6,6 +6,7 @@ import uz.itschool.educationsystemapp.module.course_features.Foods
 class FoodsMapper {
     fun dtoToEntity(dto: FoodsDto): Foods {
         return Foods(
+            dto.id,
             dto.courseName,
             dto.word,
             dto.definition,
@@ -15,6 +16,7 @@ class FoodsMapper {
 
     fun entityToDto(entity: Foods):FoodsDto{
         return FoodsDto(
+            entity.id,
             entity.courseName,
             entity.word,
             entity.definition,

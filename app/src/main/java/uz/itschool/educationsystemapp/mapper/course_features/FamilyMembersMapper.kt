@@ -6,6 +6,7 @@ import uz.itschool.educationsystemapp.module.course_features.FamilyMembers
 class FamilyMembersMapper {
     fun dtoToEntity(dto: FamilyMembersDto):FamilyMembers{
         return FamilyMembers(
+            dto.id,
             dto.courseName,
             dto.word,
             dto.definition,
@@ -14,6 +15,7 @@ class FamilyMembersMapper {
     }
     fun entityToDto(entity: FamilyMembers):FamilyMembersDto{
         return FamilyMembersDto(
+            entity.id,
             entity.courseName,
             entity.word,
             entity.definition,

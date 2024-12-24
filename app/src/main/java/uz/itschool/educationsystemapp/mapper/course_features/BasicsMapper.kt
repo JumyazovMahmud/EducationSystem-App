@@ -8,6 +8,7 @@ import uz.itschool.educationsystemapp.module.course_features.Basics
 class BasicsMapper {
     fun dtoToEntity(dto:BasicsDto):Basics{
         return Basics(
+            dto.id,
             dto.courseName,
             dto.topic,
             dto.info
@@ -16,6 +17,7 @@ class BasicsMapper {
 
     fun entityToDto(entity: Basics):BasicsDto{
         return BasicsDto(
+            entity.id,
             entity.courseName,
             entity.topic,
             entity.info

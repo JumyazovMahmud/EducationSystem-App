@@ -6,6 +6,7 @@ import uz.itschool.educationsystemapp.module.course_features.Conversations
 class ConversationsMapper {
     fun dtoToEntity(dto:ConversationsDto):Conversations{
         return Conversations(
+            dto.id,
             dto.courseName,
             dto.description,
             dto.conversation
@@ -15,6 +16,7 @@ class ConversationsMapper {
 
     fun entityToDto(entity: Conversations):ConversationsDto{
         return ConversationsDto(
+            entity.id,
             entity.courseName,
             entity.description,
             entity.conversation
