@@ -1,6 +1,7 @@
 package uz.itschool.educationsystemapp.mapper.course_features
 
 import uz.itschool.educationsystemapp.dto.course_features.OccupationsDto
+import uz.itschool.educationsystemapp.module.course_features.Foods
 import uz.itschool.educationsystemapp.module.course_features.Occupations
 
 class OccupationsMapper {
@@ -14,7 +15,7 @@ class OccupationsMapper {
         )
     }
 
-    fun entityToDto(entity: Occupations):OccupationsDto{
+    fun entityToDto(entity: Foods):OccupationsDto{
         return OccupationsDto(
             entity.id,
             entity.courseName,
