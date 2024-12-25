@@ -13,9 +13,15 @@ import uz.itschool.educationsystemapp.db.course_features.PlacesRepository
 import uz.itschool.educationsystemapp.module.Course
 import uz.itschool.educationsystemapp.module.Enrollment
 import uz.itschool.educationsystemapp.module.Student
+import uz.itschool.educationsystemapp.module.TestCourse
+import uz.itschool.educationsystemapp.module.course_features.Basics
 import uz.itschool.educationsystemapp.module.course_features.Conversations
+import uz.itschool.educationsystemapp.module.course_features.FamilyMembers
+import uz.itschool.educationsystemapp.module.course_features.Foods
+import uz.itschool.educationsystemapp.module.course_features.Occupations
+import uz.itschool.educationsystemapp.module.course_features.Places
 
-@Database(entities = [Course::class, Enrollment::class, Student::class], version = 1)
+@Database(entities = [Course::class, Enrollment::class, Student::class, TestCourse::class, Basics::class, Conversations::class, FamilyMembers::class, Foods::class, Occupations::class, Places::class], version = 1)
     abstract class AppDataBase: RoomDatabase() {
 
         abstract fun getStudentRepository(): StudentRepository

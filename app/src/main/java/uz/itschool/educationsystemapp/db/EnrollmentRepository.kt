@@ -1,9 +1,11 @@
 package uz.itschool.educationsystemapp.db
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import uz.itschool.educationsystemapp.module.Enrollment
 import uz.itschool.educationsystemapp.module.Student
+@Dao
 
 interface EnrollmentRepository {
     @Query("SELECT * FROM enrollment where deleted = false ")

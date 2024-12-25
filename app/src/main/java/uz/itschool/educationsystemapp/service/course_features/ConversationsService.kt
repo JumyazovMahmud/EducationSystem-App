@@ -50,7 +50,7 @@ class ConversationsService(context: Context) : CRUD<ConversationsDto, Conversati
 
     fun update(dto: ConversationsDto, courseName: String): ResponseDto<ConversationsDto?>{
         if (this.conversationsRepository.getConversationsByName(courseName) != null){
-            this.conversationsRepository.updateConversationsByCourseName(dto.id,dto.courseName,dto.description,dto.conversation)
+            this.conversationsRepository.updateConversationsByCourseName(dto.courseName,dto.description,dto.conversation)
             return ResponseDto<ConversationsDto?>(
                 0,
                 "OK",

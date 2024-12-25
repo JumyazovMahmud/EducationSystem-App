@@ -1,9 +1,11 @@
 package uz.itschool.educationsystemapp.db.course_features
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import uz.itschool.educationsystemapp.module.course_features.FamilyMembers
 import uz.itschool.educationsystemapp.module.course_features.Foods
+@Dao
 
 interface FoodsRepository {
     @Query("SELECT * FROM foods")

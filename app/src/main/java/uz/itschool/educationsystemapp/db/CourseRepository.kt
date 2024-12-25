@@ -1,10 +1,12 @@
 package uz.itschool.educationsystemapp.db
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import uz.itschool.educationsystemapp.dto.CourseDto
 import uz.itschool.educationsystemapp.module.Course
 import uz.itschool.educationsystemapp.module.Student
+@Dao
 
 interface CourseRepository {
     @Query("SELECT * FROM course where deleted = false ")

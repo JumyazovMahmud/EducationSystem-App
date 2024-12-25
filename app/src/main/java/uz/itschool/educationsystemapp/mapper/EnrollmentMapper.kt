@@ -6,6 +6,7 @@ import uz.itschool.educationsystemapp.module.Enrollment
 class EnrollmentMapper {
     fun dtoToEntity(dto: EnrollmentDto):Enrollment{
         return Enrollment(
+            dto.enrollmentId,
             dto.studentId,
             dto.courseId,
             dto.enrollment,
@@ -15,6 +16,7 @@ class EnrollmentMapper {
 
     fun entityToDto(entity: Enrollment):EnrollmentDto{
         return EnrollmentDto(
+            entity.enrollmentId,
             entity.studentId,
             entity.courseId,
             entity.enrollment,

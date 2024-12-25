@@ -1,9 +1,10 @@
 package uz.itschool.educationsystemapp.db
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import uz.itschool.educationsystemapp.module.TestCourse
-
+@Dao
 interface TestCourseRepository {
     @Query("SELECT * FROM test_course where deleted = false ")
     fun getAllTestCourse(): List<TestCourse?>

@@ -1,9 +1,11 @@
 package uz.itschool.educationsystemapp.db.course_features
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import uz.itschool.educationsystemapp.module.course_features.Conversations
 import uz.itschool.educationsystemapp.module.course_features.FamilyMembers
+@Dao
 
 interface FamilyMembersRepository {
 

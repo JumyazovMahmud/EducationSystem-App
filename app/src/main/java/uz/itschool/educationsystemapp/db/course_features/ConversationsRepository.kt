@@ -1,8 +1,10 @@
 package uz.itschool.educationsystemapp.db.course_features
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import uz.itschool.educationsystemapp.module.course_features.Conversations
+@Dao
 
 interface ConversationsRepository {
     @Query("SELECT * FROM conversations")
@@ -24,5 +26,5 @@ interface ConversationsRepository {
     fun updateConversationsById(id: Int, name: String, description : String, conversation: String)
 
     @Query("UPDATE conversations SET description = :description, conversation = :conversation WHERE  courseName = :name")
-    fun updateConversationsByCourseName(id: Int, name: String, description : String, conversation: String)
+    fun updateConversationsByCourseName(name: String, description : String, conversation: String)
 }
