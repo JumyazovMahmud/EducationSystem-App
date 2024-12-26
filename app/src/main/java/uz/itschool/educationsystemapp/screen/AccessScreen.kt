@@ -73,11 +73,9 @@ fun AccessScreen(navController: NavController, appDataBase: AppDataBase) {
                         .height(160.dp)
                         .align(Alignment.BottomCenter)
                         .offset(y = 30.dp, x = 42.dp)
-
                 )
 
 
-                //Text elements
 
                 Column(
                     modifier = Modifier
@@ -108,7 +106,7 @@ fun AccessScreen(navController: NavController, appDataBase: AppDataBase) {
 
             Spacer(modifier = Modifier.height(110.dp))
 
-            // Buttons
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -121,7 +119,7 @@ fun AccessScreen(navController: NavController, appDataBase: AppDataBase) {
                         ),
                         shape = MaterialTheme.shapes.small
                     )
-                    .clickable {  },
+                    .clickable { navController.navigate("log-in") },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -135,7 +133,7 @@ fun AccessScreen(navController: NavController, appDataBase: AppDataBase) {
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedButton(
-                onClick = {  },
+                onClick = { navController.navigate("sign-up") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)

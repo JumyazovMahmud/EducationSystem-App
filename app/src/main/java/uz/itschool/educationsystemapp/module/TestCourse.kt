@@ -11,5 +11,12 @@ class TestCourse(
     var topic: String,
     var duration: Int,
     var deleted: Boolean = false
-)
+) {
+    constructor(courseName: String, topic: String, duration: Int) : this(
+        testCourseId = 0,
+        courseName = courseName,
+        topic = topic,
+        duration = duration
+    )
+}
 

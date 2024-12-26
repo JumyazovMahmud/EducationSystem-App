@@ -2,6 +2,8 @@ package uz.itschool.educationsystemapp.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -26,9 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import coil3.compose.AsyncImage
 import uz.itschool.educationsystemapp.R
 import uz.itschool.educationsystemapp.db.AppDataBase
+import uz.itschool.educationsystemapp.module.TestCourse
 
 @Composable
 fun HomeScreen(navController: NavController, appDataBase: AppDataBase, id: Int) {
@@ -38,39 +40,38 @@ fun HomeScreen(navController: NavController, appDataBase: AppDataBase, id: Int) 
             .padding(horizontal = 16.dp)
             .padding(top = 16.dp)
     ) {
-        // Top Bar
-        TopBar()
+        TopBar(id, navController)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Welcome Message
-        WelcomeMessage(name = "Rohan", pendingTests = 4)
+        val name = appDataBase.getStudentRepository().getStudentById(id)?.name?: "Unknown"
+        val number = appDataBase.getTestCourseRepository().getAllTestCourse().size
+
+
+        WelcomeMessage(name = name, pendingTests = number)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Points Card
         PointsCard(points = 300)
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Pending Tests
-        PendingTests()
+        PendingTests(number, appDataBase)
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Subjects
-        SubjectsGrid()
+        SubjectGrid(appDataBase, navController, id)
     }
 }
 
 @Composable
-fun TopBar() {
+fun TopBar(id:Int, navController: NavController) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { /* TODO */ },
+        IconButton(onClick = { navController.navigate("course/$id") },
             modifier = Modifier.offset(x = (-12).dp)) {
             Icon(Icons.Default.Menu, contentDescription = "Menu")
         }
@@ -177,11 +178,11 @@ fun PointsCard(points: Int) {
 }
 
 @Composable
-fun PendingTests() {
+fun PendingTests(number: Int, appDataBase: AppDataBase) {
     Column {
         Row {
             Text(
-            text = "4 Pending tests",
+            text = "$number Pending tests",
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
@@ -196,42 +197,28 @@ fun PendingTests() {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            PendingTestCard(
-                subject = "Law of Motion",
-                category = "Physics",
-                time = "1d:10Hr",
-                modifier = Modifier.weight(1f)
-            )
-            PendingTestCard(
-                subject = "Law of Motion",
-                category = "Chemistry",
-                time = "1d:10Hr",
-                modifier = Modifier.weight(1f)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            PendingTestCard(
-                subject = "Law of Motion",
-                category = "Maths",
-                time = "1d:10Hr",
-                modifier = Modifier.weight(1f)
-            )
-            PendingTestCard(
-                subject = "Law of Motion",
-                category = "Physics",
-                time = "1d:10Hr",
-                modifier = Modifier.weight(1f)
-            )
+        val testCourses = appDataBase.getTestCourseRepository().getAllTestCourse()
+        if(testCourses.isNotEmpty()) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(testCourses.size) { index ->
+                    val course = testCourses[index] ?: TestCourse(
+                        1,
+                        "",
+                        "",
+                        0
+                    )
+                    PendingTestCard(
+                        subject = course.topic,
+                        category = course.courseName,
+                        time = course.duration,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+            }
         }
     }
 }
@@ -240,7 +227,7 @@ fun PendingTests() {
 fun PendingTestCard(
     subject: String,
     category: String,
-    time: String,
+    time: Int,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -270,7 +257,7 @@ fun PendingTestCard(
                     fontSize = 12.sp
                 )
                 Text(
-                    text = time,
+                    text = time.toString(),
                     color = Color.Gray,
                     fontSize = 12.sp
                 )
@@ -280,7 +267,8 @@ fun PendingTestCard(
 }
 
 @Composable
-fun SubjectsGrid() {
+fun SubjectGrid(appDataBase: AppDataBase, navController: NavController, id: Int) {
+
     Column {
         Text(
             text = "Subjects",
@@ -290,50 +278,62 @@ fun SubjectsGrid() {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            SubjectButton(
-                text = "Mathematics",
-                color = Color(0xFF2196F3),
-                modifier = Modifier.weight(1f)
-            )
-            SubjectButton(
-                text = "Chemistry",
-                color = Color(0xFFFF5722),
-                modifier = Modifier.weight(1f)
+
+        val names = appDataBase.getCourseRepository().getAllCourses()
+            .groupBy { it?.courseName ?: "" }
+
+        val defaultColors = listOf(
+            Color(0xFF2196F3),
+            Color(0xFFFF5722),
+            Color(0xFFE91E63),
+            Color(0xFFCD853F),
+            Color(0xFF4CAF50),
+            Color(0xFF9C27B0)
+        )
+
+        val subjects = names.keys.filter { it.isNotEmpty() }.mapIndexed { index, courseName ->
+            Subject(
+                name = courseName,
+                color = defaultColors[index % defaultColors.size]
             )
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
 
-        Row(
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            contentPadding = PaddingValues(8.dp)
         ) {
-            SubjectButton(
-                text = "Physics",
-                color = Color(0xFFE91E63),
-                modifier = Modifier.weight(1f)
-            )
-            SubjectButton(
-                text = "Reasoning",
-                color = Color(0xFFCD853F),
-                modifier = Modifier.weight(1f)
-            )
+            items(subjects.size) { index ->
+                val subject = subjects[index]
+                SubjectButton(
+                    text = subject.name,
+                    color = subject.color,
+                    navController = navController,
+                    id = id,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                )
+            }
         }
     }
 }
+
+data class Subject(val name: String, val color: Color)
+
+
 
 @Composable
 fun SubjectButton(
     text: String,
     color: Color,
+    navController: NavController,
+    id:Int,
     modifier: Modifier = Modifier
 ) {
     Button(
-        onClick = { /* TODO */ },
+        onClick = { navController.navigate("course-details/$text/$id") },
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(containerColor = color),
         shape = RoundedCornerShape(16.dp)

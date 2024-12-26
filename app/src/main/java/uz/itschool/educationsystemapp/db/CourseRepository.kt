@@ -3,9 +3,8 @@ package uz.itschool.educationsystemapp.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import uz.itschool.educationsystemapp.dto.CourseDto
 import uz.itschool.educationsystemapp.module.Course
-import uz.itschool.educationsystemapp.module.Student
+
 @Dao
 
 interface CourseRepository {
@@ -21,6 +20,9 @@ interface CourseRepository {
     @Query("SELECT * FROM course WHERE courseId = :id")
     fun getCourseById(id: Int): Course?
 
+    @Query("SELECT * FROM course WHERE courseName = :name")
+    fun getCourseByName(name: String): Course?
+
     @Query("UPDATE course SET courseName = :name, duration = :duration WHERE courseId = :id")
-    fun updateCourse(id: Int, name: String, duration: Int)
+    fun updateCourse(id: Int?, name: String, duration: Int)
 }

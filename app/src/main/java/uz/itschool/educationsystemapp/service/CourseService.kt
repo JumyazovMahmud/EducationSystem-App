@@ -4,7 +4,6 @@ import android.content.Context
 import uz.itschool.educationsystemapp.db.AppDataBase
 import uz.itschool.educationsystemapp.dto.CourseDto
 import uz.itschool.educationsystemapp.dto.ResponseDto
-import uz.itschool.educationsystemapp.dto.course_features.PlacesDto
 import uz.itschool.educationsystemapp.mapper.CourseMapper
 import uz.itschool.educationsystemapp.module.Course
 import uz.itschool.educationsystemapp.util.CRUD

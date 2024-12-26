@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -28,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import uz.itschool.educationsystemapp.R
 import uz.itschool.educationsystemapp.db.AppDataBase
+import uz.itschool.educationsystemapp.module.Student
 import uz.itschool.educationsystemapp.ui.theme.EducationSystemAppTheme
 
 @Composable
@@ -35,7 +37,7 @@ fun SignUpScreen(navController: NavController, appDataBase: AppDataBase) {
     var password by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
-
+    var valid by remember { mutableStateOf(false)}
     Box(modifier = Modifier.fillMaxSize()) {
 
         Image(
@@ -140,7 +142,21 @@ fun SignUpScreen(navController: NavController, appDataBase: AppDataBase) {
                         )
                         .height(50.dp)
                         //todo: BACKEND CONNECTION
-                        .clickable { /* Handle Sign Up */ },
+                        .clickable {
+                            if (username.isNotBlank() && password.isNotBlank() && email.isNotBlank()) {
+                                if (connection(appDataBase, username, password, email)) {
+                                    valid = false
+                                    navController.navigate(
+                                        "home/${
+                                            appDataBase.getStudentRepository()
+                                                .getStudentByUsername(username)?.studentId
+                                        }"
+                                    )
+                                } else {
+                                    valid = true
+                                }
+                            }
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -161,9 +177,27 @@ fun SignUpScreen(navController: NavController, appDataBase: AppDataBase) {
                         fontSize = 14.sp
                     )
                 }
+
+                Text("Wrong username or password", color = Color.Red, modifier = Modifier.alpha(if(valid) 1f else 0f ), fontSize = 14.sp)
             }
         }
     }
+}
+
+fun connection(appDataBase: AppDataBase, username: String, password: String, email: String):Boolean{
+    if(appDataBase.getStudentRepository().getStudentByUsername(username) == null){
+        appDataBase.getStudentRepository().addStudent(
+            Student(
+                name = username,
+                email = email,
+                phone = "",
+                username = username,
+                password = password
+            )
+        )
+        return true
+    }
+    return false
 }
 
 @Preview(showBackground = true)

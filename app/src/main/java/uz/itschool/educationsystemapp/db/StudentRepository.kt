@@ -20,4 +20,7 @@ interface StudentRepository {
 
     @Query("UPDATE student SET name = :name, email = :email, phone = :phone, username = :username, password = :password WHERE studentId = :id")
     fun updateStudent(id: Int, name: String, email: String, phone: String, username: String, password: String)
+
+    @Query("SELECT * FROM student WHERE username = :username")
+    fun getStudentByUsername(username: String): Student?
 }

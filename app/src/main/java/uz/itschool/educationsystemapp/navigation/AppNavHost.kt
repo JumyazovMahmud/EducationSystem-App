@@ -3,6 +3,7 @@ package uz.itschool.educationsystemapp.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -13,13 +14,18 @@ import uz.itschool.educationsystemapp.screen.CourseScreen
 import uz.itschool.educationsystemapp.screen.HomeScreen
 import uz.itschool.educationsystemapp.screen.LogInScreen
 import uz.itschool.educationsystemapp.screen.SignUpScreen
+import uz.itschool.educationsystemapp.screen.admin.AdminCourseScreen
+import uz.itschool.educationsystemapp.screen.admin.AdminHomeScreen
+import uz.itschool.educationsystemapp.screen.admin.AdminTestCourseScreen
+import uz.itschool.educationsystemapp.screen.admin.CourseEditScreen
+import uz.itschool.educationsystemapp.screen.admin.TestCourseEditScreen
 
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier,
                navController: NavHostController,
                startDestination:String = "access",
-               appDataBase: AppDataBase
+               appDataBase: AppDataBase = AppDataBase.getInstance(LocalContext.current)
 ){
 
     NavHost(
@@ -30,7 +36,7 @@ fun AppNavHost(modifier: Modifier = Modifier,
         composable("course/{id}") {
             navBackStackEntry ->
             val id = navBackStackEntry.arguments?.getString("id")?.toIntOrNull()?:0
-            CourseScreen(navController, id)
+            CourseScreen(navController, appDataBase = appDataBase, id)
         }
         composable("home/{id}") {
                 navBackStackEntry ->
@@ -55,5 +61,39 @@ fun AppNavHost(modifier: Modifier = Modifier,
             courseName?.let {
             CourseDetailsScreen(navController, appDataBase = appDataBase, courseName, id)}
         }
+
+        composable("admin-home") {
+            AdminHomeScreen(navController, appDataBase = appDataBase)
+        }
+
+        composable("admin-course") {
+            AdminCourseScreen(navController, appDataBase = appDataBase)
+        }
+
+        composable("course-edit/{text}") {
+                navBackStackEntry ->
+            val text  = navBackStackEntry.arguments?.getString("text")
+            text?.let {
+                CourseEditScreen(navController, appDataBase, text)
+            }
+        }
+
+
+        composable("admin-test-course") {
+            AdminTestCourseScreen(navController, appDataBase = appDataBase)
+        }
+
+        composable("test-course-edit/{text}") {
+                navBackStackEntry ->
+            val text  = navBackStackEntry.arguments?.getString("text")
+            text?.let {
+                TestCourseEditScreen(navController, appDataBase, text)
+            }
+        }
+
+
+
+
+
     }
 }
