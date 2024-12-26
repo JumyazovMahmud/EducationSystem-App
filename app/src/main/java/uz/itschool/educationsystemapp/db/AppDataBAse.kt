@@ -21,7 +21,7 @@ import uz.itschool.educationsystemapp.module.course_features.Foods
 import uz.itschool.educationsystemapp.module.course_features.Occupations
 import uz.itschool.educationsystemapp.module.course_features.Places
 
-@Database(entities = [Course::class, Enrollment::class, Student::class, TestCourse::class, Basics::class, Conversations::class, FamilyMembers::class, Foods::class, Occupations::class, Places::class], version = 1)
+@Database(entities = [Course::class, Enrollment::class, Student::class, TestCourse::class, Basics::class, Conversations::class, FamilyMembers::class, Foods::class, Occupations::class, Places::class], version = 1, exportSchema = false)
     abstract class AppDataBase: RoomDatabase() {
 
         abstract fun getStudentRepository(): StudentRepository

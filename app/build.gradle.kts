@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id ("kotlin-kapt")
+//    val projectDir = "C:\\Users\\user\\AndroidStudioProjects\\EducationSystem-App"
 }
 
 android {
@@ -12,11 +13,18 @@ android {
     defaultConfig {
         applicationId = "uz.itschool.educationsystemapp"
         minSdk = 28
+        //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -58,8 +66,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-    implementation ("androidx.room:room-runtime:2.5.0")
-
-    kapt("androidx.room:room-compiler:2.5.0")
+    implementation(libs.androidx.navigation.compose)
+    implementation (libs.androidx.room.runtime)
+    implementation(libs.coil.compose)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.androidx.room.compiler)
 }
