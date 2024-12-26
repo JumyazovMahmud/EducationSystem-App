@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -23,11 +24,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import uz.itschool.educationsystemapp.R
+import uz.itschool.educationsystemapp.db.AppDataBase
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController, appDataBase: AppDataBase, id: Int) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -345,5 +349,5 @@ fun SubjectButton(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(rememberNavController(), appDataBase = AppDataBase.getInstance(LocalContext.current), 0)
 }

@@ -22,11 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import uz.itschool.educationsystemapp.R
+import uz.itschool.educationsystemapp.db.AppDataBase
 import uz.itschool.educationsystemapp.ui.theme.EducationSystemAppTheme
 
 @Composable
-fun CourseDetailsScreen() {
+fun CourseDetailsScreen(navController: NavController, appDataBase: AppDataBase, courseName: String, id:Int) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
