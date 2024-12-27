@@ -15,6 +15,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,11 +38,14 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
     var topic by remember { mutableStateOf("") }
     var duration by remember { mutableStateOf("0h:0d") }
 
-    if(text != "create") {
-        val testCourse: TestCourse? =
-            appDataBase.getTestCourseRepository().getTestCourseByCourseName(text)
-        duration = testCourse?.duration.toString() ?: "0"
-        topic = testCourse?.topic ?: ""
+    LaunchedEffect(text) {
+        if (text != "create") {
+            val testCourse: TestCourse? =
+                appDataBase.getTestCourseRepository().getTestCourseByCourseName(text)
+            duration = testCourse?.duration ?: "0h:0d"
+            topic = testCourse?.topic ?: ""
+            courseName = testCourse?.courseName ?: ""
+        }
     }
 
     Column(modifier = Modifier.fillMaxSize(),
@@ -64,7 +68,7 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
 
         OutlinedTextField(
             value = courseName,
-            onValueChange = {courseName = it },
+            onValueChange = { courseName = it },
             label = { Text("Test Course Name") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,7 +77,7 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
 
         OutlinedTextField(
             value = topic,
-            onValueChange = {topic = it },
+            onValueChange = { topic = it },
             label = { Text("Topic") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -89,13 +93,12 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
                 .padding(bottom = 8.dp)
         )
 
-
         Column(Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
             OutlinedButton(
                 onClick = {
-                    if(courseName.isNotBlank() && topic.isNotBlank() && duration.isNotBlank()) {
+                    if (courseName.isNotBlank() && topic.isNotBlank() && duration.isNotBlank()) {
                         connection(appDataBase, courseName, topic, duration, text)
                         navController.navigate("admin-test-course")
                     }
@@ -113,7 +116,7 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
                 )
             }
 
-            if(text != "create"){
+            if (text != "create") {
                 OutlinedButton(
                     onClick = {
                         appDataBase.getTestCourseRepository().deleteTestCourseByCourseName(text)
@@ -152,8 +155,6 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
                 )
             }
         }
-
-
     }
 }
 
