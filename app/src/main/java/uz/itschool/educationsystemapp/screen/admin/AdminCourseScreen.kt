@@ -31,15 +31,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import uz.itschool.educationsystemapp.R
 import uz.itschool.educationsystemapp.db.AppDataBase
 import uz.itschool.educationsystemapp.screen.Subject
 import uz.itschool.educationsystemapp.screen.SubjectButton
+import uz.itschool.educationsystemapp.ui.theme.EducationSystemAppTheme
 
 @Composable
 fun AdminCourseScreen(navController: NavController, appDataBase: AppDataBase) {
@@ -71,8 +75,28 @@ fun AdminCourseScreen(navController: NavController, appDataBase: AppDataBase) {
         Spacer(modifier = Modifier.height(8.dp))
 
 
+//        val names = appDataBase.getCourseRepository().getAllCourses()
+//            .map { it?.courseName ?: "" }
+//
+//
+//        val defaultColors = listOf(
+//            Color(0xFF2196F3),
+//            Color(0xFFFF5722),
+//            Color(0xFFE91E63),
+//            Color(0xFFCD853F),
+//            Color(0xFF4CAF50),
+//            Color(0xFF9C27B0)
+//        )
+//
+//        val subjects = names.keys.filter { it.isNotEmpty() }.mapIndexed { index, courseName ->
+//            Subject(
+//                name = courseName,
+//                color = defaultColors[index % defaultColors.size]
+//            )
+//        }
+
         val names = appDataBase.getCourseRepository().getAllCourses()
-            .groupBy { it?.courseName ?: "" }
+            .map { it?.courseName ?: "" }
 
         val defaultColors = listOf(
             Color(0xFF2196F3),
@@ -83,12 +107,17 @@ fun AdminCourseScreen(navController: NavController, appDataBase: AppDataBase) {
             Color(0xFF9C27B0)
         )
 
-        val subjects = names.keys.filter { it.isNotEmpty() }.mapIndexed { index, courseName ->
-            Subject(
-                name = courseName,
-                color = defaultColors[index % defaultColors.size]
-            )
-        }
+// Create the 'subjects' list with non-empty course names and assigned colors
+        val subjects = names
+            .filter { it.isNotEmpty() }  // Filter out empty course names
+            .mapIndexed { index, courseName ->
+                Subject(
+                    name = courseName,
+                    color = defaultColors[index % defaultColors.size]
+                )
+            }
+
+
 
 
         LazyVerticalGrid(
@@ -98,7 +127,7 @@ fun AdminCourseScreen(navController: NavController, appDataBase: AppDataBase) {
         ) {
             items(subjects.size) { index ->
                 val subject = subjects[index]
-                SubjectButton(
+                SubjectButton1(
                     text = subject.name,
                     color = subject.color,
                     navController = navController,
@@ -145,7 +174,7 @@ fun AdminCourseScreen(navController: NavController, appDataBase: AppDataBase) {
 
 
 @Composable
-fun SubjectButton(
+fun SubjectButton1(
     text: String,
     color: Color,
     navController: NavController,
@@ -162,5 +191,13 @@ fun SubjectButton(
             color = Color.White,
             modifier = Modifier.padding(vertical = 8.dp)
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AdminCourseScreenPreview() {
+    EducationSystemAppTheme {
+        AdminCourseScreen(rememberNavController(), appDataBase = AppDataBase.getInstance(LocalContext.current))
     }
 }

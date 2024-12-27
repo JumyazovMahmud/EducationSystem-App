@@ -25,8 +25,8 @@ interface TestCourseRepository {
     fun getTestCourseByCourseName(courseName: String): TestCourse?
 
     @Query("UPDATE test_course SET courseName = :courseName, topic = :topic, duration = :duration WHERE testCourseId = :id")
-    fun updateTestCourseById(id: Int, courseName: String, topic: String, duration : Int)
+    fun updateTestCourseById(id: Int, courseName: String, topic: String, duration : String)
 
     @Query("UPDATE test_course SET topic = :topic, duration = :duration WHERE courseName = :courseName")
-    fun updateTestCourseByCourseName(courseName: String, topic: String, duration : Int)
+    fun updateTestCourseByCourseName(courseName: String, topic: String, duration : String)
 }

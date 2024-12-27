@@ -6,7 +6,6 @@ import androidx.room.Query
 import uz.itschool.educationsystemapp.module.Course
 
 @Dao
-
 interface CourseRepository {
     @Query("SELECT * FROM course where deleted = false ")
     fun getAllCourses(): List<Course?>
@@ -14,7 +13,7 @@ interface CourseRepository {
     @Insert
     fun addCourse(course: Course)
 
-    @Query("UPDATE course SET deleted = true WHERE courseId = :id") //DELETE FROM todo_items WHERE id = :id
+    @Query("UPDATE course SET deleted = true WHERE courseId = :id")
     fun deleteCourseById(id: Int)
 
     @Query("SELECT * FROM course WHERE courseId = :id")
@@ -24,5 +23,5 @@ interface CourseRepository {
     fun getCourseByName(name: String): Course?
 
     @Query("UPDATE course SET courseName = :name, duration = :duration WHERE courseId = :id")
-    fun updateCourse(id: Int?, name: String, duration: Int)
+    fun updateCourse(id: Int?, name: String, duration: String)
 }

@@ -14,12 +14,12 @@ class Course (
 //    var places:  Map<MutableList<String>, Int>,
 //    var familyMembers:  Map<MutableList<String>, Int>,
 //    var foods:  Map<MutableList<String>, Int>,
-    var duration :Int,
+    var duration :String,
     var deleted : Boolean = false
 
 
 ) {
-    constructor( courseName: String, duration: Int) : this(
+    constructor( courseName: String, duration: String) : this(
         courseId = 0,
         courseName,
         duration,

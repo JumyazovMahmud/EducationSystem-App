@@ -36,17 +36,17 @@ fun AdminHomeScreen(navController: NavController, appDataBase: AppDataBase){
         ) {
             Text(text = "Course", fontSize = 32.sp, color = Color(0xFF3F51B5))
         }
-//
-//        OutlinedButton(
-//            onClick = {  },
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 16.dp ,vertical = 20.dp)
-//                .height(100.dp),
-//            border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
-//        ) {
-//            Text(text = "Enrollment", fontSize = 32.sp, color = Color(0xFF3F51B5))
-//        }
+
+        OutlinedButton(
+            onClick = { navController.navigate("admin-student") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp ,vertical = 20.dp)
+                .height(100.dp),
+            border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
+        ) {
+            Text(text = "Enrollment", fontSize = 32.sp, color = Color(0xFF3F51B5))
+        }
 
 
 
@@ -73,13 +73,3 @@ fun AdminHomeScreen(navController: NavController, appDataBase: AppDataBase){
         }
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun AdminHomeScreenPreview() {
-//    EducationSystemAppTheme {
-//        AdminHomeScreen(rememberNavController(), appDataBase = AppDataBase.getInstance(LocalContext.current)) //
-//
-//    }
-//}

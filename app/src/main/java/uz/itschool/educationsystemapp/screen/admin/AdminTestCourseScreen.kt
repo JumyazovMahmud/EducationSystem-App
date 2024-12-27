@@ -71,7 +71,7 @@ fun AdminTestCourseScreen(navController: NavController, appDataBase: AppDataBase
                         1,
                         "",
                         "",
-                        0
+                        ""
                     )
                     PendingTestCard(
                         subject = course.topic,
@@ -120,12 +120,12 @@ fun AdminTestCourseScreen(navController: NavController, appDataBase: AppDataBase
 fun PendingTestCard(
     subject: String,
     category: String,
-    time: Int,
+    time: String,
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
     Card(
-        modifier = modifier.clickable { navController.navigate("test-course-edit/$subject") },
+        modifier = modifier.clickable { navController.navigate("test-course-edit/$category") },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {

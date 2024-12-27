@@ -23,4 +23,7 @@ interface StudentRepository {
 
     @Query("SELECT * FROM student WHERE username = :username")
     fun getStudentByUsername(username: String): Student?
+
+    @Query("UPDATE student SET deleted = true WHERE username = :username")
+    fun deleteByUserName(username: String)
 }

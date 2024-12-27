@@ -209,7 +209,7 @@ fun PendingTests(number: Int, appDataBase: AppDataBase) {
                         1,
                         "",
                         "",
-                        0
+                        ""
                     )
                     PendingTestCard(
                         subject = course.topic,
@@ -227,7 +227,7 @@ fun PendingTests(number: Int, appDataBase: AppDataBase) {
 fun PendingTestCard(
     subject: String,
     category: String,
-    time: Int,
+    time: String,
     modifier: Modifier = Modifier
 ) {
     Card(

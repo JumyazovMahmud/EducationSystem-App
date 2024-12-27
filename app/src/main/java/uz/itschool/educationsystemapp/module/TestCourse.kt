@@ -9,10 +9,10 @@ class TestCourse(
     var testCourseId: Int,
     var courseName: String,
     var topic: String,
-    var duration: Int,
+    var duration: String,
     var deleted: Boolean = false
 ) {
-    constructor(courseName: String, topic: String, duration: Int) : this(
+    constructor(courseName: String, topic: String, duration: String) : this(
         testCourseId = 0,
         courseName = courseName,
         topic = topic,

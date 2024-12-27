@@ -16,8 +16,10 @@ import uz.itschool.educationsystemapp.screen.LogInScreen
 import uz.itschool.educationsystemapp.screen.SignUpScreen
 import uz.itschool.educationsystemapp.screen.admin.AdminCourseScreen
 import uz.itschool.educationsystemapp.screen.admin.AdminHomeScreen
+import uz.itschool.educationsystemapp.screen.admin.AdminStudentScreen
 import uz.itschool.educationsystemapp.screen.admin.AdminTestCourseScreen
 import uz.itschool.educationsystemapp.screen.admin.CourseEditScreen
+import uz.itschool.educationsystemapp.screen.admin.StudentEditScreen
 import uz.itschool.educationsystemapp.screen.admin.TestCourseEditScreen
 
 
@@ -78,7 +80,6 @@ fun AppNavHost(modifier: Modifier = Modifier,
             }
         }
 
-
         composable("admin-test-course") {
             AdminTestCourseScreen(navController, appDataBase = appDataBase)
         }
@@ -90,6 +91,22 @@ fun AppNavHost(modifier: Modifier = Modifier,
                 TestCourseEditScreen(navController, appDataBase, text)
             }
         }
+
+        composable("admin-student") {
+            AdminStudentScreen(navController, appDataBase = appDataBase)
+        }
+
+        composable("student-edit/{text}") {
+                navBackStackEntry ->
+            val text  = navBackStackEntry.arguments?.getString("text")
+            text?.let {
+                StudentEditScreen(text, appDataBase, navController)
+            }
+        }
+
+
+
+
 
 
 

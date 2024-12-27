@@ -29,14 +29,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import uz.itschool.educationsystemapp.R
 import uz.itschool.educationsystemapp.db.AppDataBase
-import uz.itschool.educationsystemapp.module.Course
 import uz.itschool.educationsystemapp.module.TestCourse
 
 @Composable
 fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase, text: String) {
     var courseName by remember { mutableStateOf(if (text == "create") "" else text) }
     var topic by remember { mutableStateOf("") }
-    var duration by remember { mutableStateOf("0") }
+    var duration by remember { mutableStateOf("0h:0d") }
 
     if(text != "create") {
         val testCourse: TestCourse? =
@@ -97,7 +96,7 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
             OutlinedButton(
                 onClick = {
                     if(courseName.isNotBlank() && topic.isNotBlank() && duration.isNotBlank()) {
-                        connection(appDataBase, courseName, topic, duration.toInt(), text)
+                        connection(appDataBase, courseName, topic, duration, text)
                         navController.navigate("admin-test-course")
                     }
                 },
@@ -123,6 +122,7 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
+                        .padding(top = 16.dp)
                         .height(50.dp),
                     border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
                 ) {
@@ -157,7 +157,7 @@ fun TestCourseEditScreen(navController: NavController, appDataBase: AppDataBase,
     }
 }
 
-fun connection(appDataBase: AppDataBase, courseName: String, topic: String, duration: Int, text: String){
+fun connection(appDataBase: AppDataBase, courseName: String, topic: String, duration: String, text: String){
     if(text == "create" && appDataBase.getCourseRepository().getCourseByName(courseName) != null){
         appDataBase.getTestCourseRepository().addTestCourse(TestCourse(courseName, topic, duration))
     }else{

@@ -55,35 +55,6 @@ fun CourseEditScreen(navController: NavController, appDataBase: AppDataBase, tex
         verticalArrangement = Arrangement.Center
     ) {
 
-//        Row(modifier = Modifier.fillMaxWidth()) {
-////            Image(
-////                painter = painterResource(id = R.drawable.back),
-////                contentDescription = "Back Icon",
-////                modifier = Modifier.size(36.dp)
-////                    .clickable { navController.navigate("admin-course") },
-////                contentScale = ContentScale.Crop
-////            )
-//
-//            OutlinedButton(
-//                onClick = {
-//                    navController.navigate("admin-course")
-//
-//                },
-//                modifier = Modifier
-//                    .width(150.dp)
-//                    .padding(horizontal = 16.dp)
-//                    .height(50.dp),
-//                border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
-//            ) {
-//                Text(
-//                    text = "back",
-//                    fontSize = 16.sp,
-//                    color = Color(0xFF3F51B5)
-//                )
-//            }
-//
-//
-//        }
 
 
     Text(text = if(text == "create") "Creation" else text, fontWeight = FontWeight.Bold, fontSize = 32.sp)
@@ -115,7 +86,7 @@ fun CourseEditScreen(navController: NavController, appDataBase: AppDataBase, tex
         OutlinedButton(
             onClick = {
                 if (courseName.isNotBlank() && duration.isNotBlank()) {
-                    connection(appDataBase, courseName, duration.toInt(), text)
+                    uz.itschool.educationsystemapp.screen.admin.connection(appDataBase, courseName, duration, text)
                     navController.navigate("admin-course")
                 }
             },
@@ -143,6 +114,7 @@ fun CourseEditScreen(navController: NavController, appDataBase: AppDataBase, tex
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp)
                     .height(50.dp),
                 border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
             ) {
@@ -180,11 +152,11 @@ fun CourseEditScreen(navController: NavController, appDataBase: AppDataBase, tex
 
 
 
-fun connection(appDataBase: AppDataBase, courseName: String, duration: Int, text: String){
+fun connection(appDataBase: AppDataBase, courseName: String, duration: String, text: String){
     if(text == "create"){
         appDataBase.getCourseRepository().addCourse(Course(courseName, duration))
     }else{
-        appDataBase.getCourseRepository().updateCourse(appDataBase.getCourseRepository().getCourseByName(text)?.courseId, courseName, duration.toInt())
+        appDataBase.getCourseRepository().updateCourse(appDataBase.getCourseRepository().getCourseByName(text)?.courseId, courseName, duration)
     }
 
 }

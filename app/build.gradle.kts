@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id ("kotlin-kapt")
-//    val projectDir = "C:\\Users\\user\\AndroidStudioProjects\\EducationSystem-App"
 }
 
 android {
@@ -70,5 +69,5 @@ dependencies {
     implementation (libs.androidx.room.runtime)
     implementation(libs.coil.compose)
     //noinspection KaptUsageInsteadOfKsp
-    kapt(libs.androidx.room.compiler)
+    kapt("androidx.room:room-compiler:2.6.1")
 }
