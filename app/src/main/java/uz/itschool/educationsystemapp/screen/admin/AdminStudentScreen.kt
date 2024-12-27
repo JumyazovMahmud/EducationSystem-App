@@ -40,8 +40,6 @@ fun AdminStudentScreen(navController: NavController, appDataBase: AppDataBase){
 
         val students = appDataBase.getStudentRepository().getAllStudents()
 
-//        val enrollments = appDataBase.getCourseRepository().getAllCourses().groupBy { it?.courseName ?: "" }
-
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(8.dp),

@@ -42,23 +42,6 @@ fun AdminTestCourseScreen(navController: NavController, appDataBase: AppDataBase
     Column(modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
-//        Row {
-//            Text(
-//                text = "$number Pending tests",
-//                fontWeight = FontWeight.Bold,
-//                fontSize = 18.sp
-//            )
-//            Spacer(modifier = Modifier.width(9.dp))
-//            Image(
-//                painter = painterResource(id = R.drawable.info),
-//                contentDescription = "Custom Icon",
-//                modifier = Modifier.size(16.dp).offset(y=4.dp),
-//                colorFilter = ColorFilter.tint(Color.Red)
-//            ) }
-//
-//
-//        Spacer(modifier = Modifier.height(8.dp))
-
         val testCourses = appDataBase.getTestCourseRepository().getAllTestCourse()
         if(testCourses.isNotEmpty()) {
             LazyVerticalGrid(

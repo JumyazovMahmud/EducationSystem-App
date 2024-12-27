@@ -9,28 +9,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,7 +34,6 @@ import androidx.navigation.compose.rememberNavController
 import uz.itschool.educationsystemapp.R
 import uz.itschool.educationsystemapp.db.AppDataBase
 import uz.itschool.educationsystemapp.screen.Subject
-import uz.itschool.educationsystemapp.screen.SubjectButton
 import uz.itschool.educationsystemapp.ui.theme.EducationSystemAppTheme
 
 @Composable
@@ -74,27 +65,6 @@ fun AdminCourseScreen(navController: NavController, appDataBase: AppDataBase) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-
-//        val names = appDataBase.getCourseRepository().getAllCourses()
-//            .map { it?.courseName ?: "" }
-//
-//
-//        val defaultColors = listOf(
-//            Color(0xFF2196F3),
-//            Color(0xFFFF5722),
-//            Color(0xFFE91E63),
-//            Color(0xFFCD853F),
-//            Color(0xFF4CAF50),
-//            Color(0xFF9C27B0)
-//        )
-//
-//        val subjects = names.keys.filter { it.isNotEmpty() }.mapIndexed { index, courseName ->
-//            Subject(
-//                name = courseName,
-//                color = defaultColors[index % defaultColors.size]
-//            )
-//        }
-
         val names = appDataBase.getCourseRepository().getAllCourses()
             .map { it?.courseName ?: "" }
 
@@ -107,9 +77,8 @@ fun AdminCourseScreen(navController: NavController, appDataBase: AppDataBase) {
             Color(0xFF9C27B0)
         )
 
-// Create the 'subjects' list with non-empty course names and assigned colors
         val subjects = names
-            .filter { it.isNotEmpty() }  // Filter out empty course names
+            .filter { it.isNotEmpty() }
             .mapIndexed { index, courseName ->
                 Subject(
                     name = courseName,

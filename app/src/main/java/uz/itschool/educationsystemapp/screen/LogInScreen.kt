@@ -103,15 +103,6 @@ fun LogInScreen(navController: NavController, appDataBase: AppDataBase) {
                         .padding(bottom = 8.dp)
                 )
 
-//                OutlinedTextField(
-//                    value = email,
-//                    onValueChange = { email = it },
-//                    label = { Text("Email address") },
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(bottom = 8.dp)
-//                )
-
                 var passwordVisible by remember { mutableStateOf(false) }
                 OutlinedTextField(
                     value = password,
@@ -174,7 +165,7 @@ fun LogInScreen(navController: NavController, appDataBase: AppDataBase) {
 
                 Spacer(modifier = Modifier.height(16.dp))
                 TextButton(
-                    onClick = { /* Handle already have an account */ },
+                    onClick = {  },
                 ) {
                     Text(
                         text = "Forget password?",
